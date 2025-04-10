@@ -6,21 +6,31 @@ const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  const [products, setProducts] = useState(productData);
-  const [categories, setCategories] = useState(categoryData);
+  const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [orderHistory, setOrderHistory] = useState([]);
 
-  // Load cart from localStorage on first render
+  // Load products, categories, cart, and order history
   useEffect(() => {
+    setProducts(productData);
+    setCategories(categoryData);
+
     const storedCart = localStorage.getItem('cart');
-    if (storedCart) {
-      setCart(JSON.parse(storedCart));
-    }
+    if (storedCart) setCart(JSON.parse(storedCart));
+
+    const storedOrders = localStorage.getItem('orderHistory');
+    if (storedOrders) setOrderHistory(JSON.parse(storedOrders));
   }, []);
 
-  // Sync cart to localStorage when it changes
+  // Save cart to localStorage
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);
+
+  // Save order history to localStorage
+  useEffect(() => {
+    localStorage.setItem('orderHistory', JSON.stringify(orderHistory));
+  }, [orderHistory]);
 
   const addToCart = (product) => {
     const exists = cart.find((item) => item._id === product._id);
@@ -50,8 +60,8 @@ export const ProductProvider = ({ children }) => {
   const decreaseQty = (id) => {
     setCart(
       cart.map((item) =>
-        item._id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
+        item._id === id
+          ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : 1 }
           : item
       )
     );
@@ -61,6 +71,21 @@ export const ProductProvider = ({ children }) => {
     setCart([]);
     localStorage.setItem('cart', JSON.stringify([]));
   };
+
+  const placeOrder = (shippingData) => {
+    const existingOrders = JSON.parse(localStorage.getItem('orders')) || [];
+    const newOrder = {
+      id: Date.now(),
+      items: cart,
+      total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0) + 10,
+      date: new Date().toLocaleString(),
+      shipping: shippingData,
+      status: 'Pending',
+    };
+    localStorage.setItem('orders', JSON.stringify([...existingOrders, newOrder]));
+    clearCart();
+  };
+  
 
   return (
     <ProductContext.Provider
@@ -73,6 +98,7 @@ export const ProductProvider = ({ children }) => {
         clearCart,
         products,
         categories,
+        placeOrder, // <-- Exporting placeOrder
       }}
     >
       {children}

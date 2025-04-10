@@ -29,6 +29,7 @@ export default function Navbar() {
           <Link to="/contact">Contact</Link>
           <Link to="/about">About</Link>
           <Link to="/wishlist">Wishlist</Link>
+          <Link to="/order-history">Orders</Link>
 
           {/* CART */}
           <Link to="/cart" className="relative">
@@ -43,6 +44,8 @@ export default function Navbar() {
 <Link to="/auth" className="text-[#006A71] hover:text-[#48A6A7]">
   <FaUser size={20} />
 </Link>
+
+
         </div>
       </div>
     </nav>

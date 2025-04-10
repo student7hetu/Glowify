@@ -11,6 +11,7 @@ import About from './pages/About';
 import Wishlist from './pages/Wishlist';
 import Auth from './pages/Auth';
 import Checkout from './pages/Checkout';
+import OrderHistory from './pages/OrderHistory';
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/order-history" element={<OrderHistory />} />
         </Routes>
       </Router>
   );
