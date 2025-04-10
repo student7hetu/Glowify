@@ -6,10 +6,12 @@ export default function Categories() {
   const { categories, products } = useProductContext();
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredProducts = Array.isArray(products)
+  ? products.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  : [];
 
   return (
     <div className="bg-[#F2EFE7] min-h-screen py-10 px-4 sm:px-6 lg:px-20">
@@ -33,7 +35,6 @@ export default function Categories() {
               className="w-full h-32 object-cover rounded mb-3"
             />
             <h3 className="font-semibold text-[#006A71]">{cat.name}</h3>
-            <p className="text-sm text-gray-500">{cat.description.slice(0, 50)}...</p>
           </Link>
         ))}
       </div>

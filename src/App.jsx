@@ -10,6 +10,7 @@ import Cart from './pages/Cart';
 import About from './pages/About';
 import Wishlist from './pages/Wishlist';
 import Auth from './pages/Auth';
+import Checkout from './pages/Checkout';
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Routes>
       </Router>
   );

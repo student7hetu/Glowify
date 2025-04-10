@@ -28,7 +28,7 @@ const ProductInquiryForm = ({ product }) => {
   };
 
   return (
-    <div className="bg-[#9ACBD0] p-6 rounded shadow-md">
+    <div className="bg-[#e9f2f4] p-6 rounded shadow-md">
       <h2 className="text-lg font-bold text-[#006A71] mb-4">Product Inquiry</h2>
       <form ref={form} onSubmit={handleSubmit} className="flex flex-col gap-3">
         <input type="hidden" name="productId" value={product?._id || ""} />
