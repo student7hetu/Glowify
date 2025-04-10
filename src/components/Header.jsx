@@ -1,15 +1,13 @@
-// src/components/Header.jsx
 import { Link } from 'react-router-dom';
 
 export default function Header() {
   return (
-    <header className="bg-white shadow p-4 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold text-[#7F56D9]">PersonalCare</Link>
-        <nav className="space-x-6 text-sm font-medium">
-          <Link to="/" className="text-[#6B7280] hover:text-[#7F56D9]">Home</Link>
-          <Link to="/favourite" className="text-[#6B7280] hover:text-[#7F56D9]">Favourites</Link>
-          <Link to="/contact" className="text-[#6B7280] hover:text-[#7F56D9]">Contact</Link>
+    <header className="bg-[#F2EFE7] p-6">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
+        <h1 className="text-3xl font-bold text-[#006A71]">PureCare</h1>
+        <nav className="mt-4 md:mt-0 space-x-6 text-[#006A71] font-medium">
+          <Link to="/">Home</Link>
+          <Link to="/contact">Contact</Link>
         </nav>
       </div>
     </header>
