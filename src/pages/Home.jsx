@@ -2,12 +2,13 @@
 import { useProductContext } from '../context/ProductContext';
 import { Link } from 'react-router-dom';
 import { FaUndoAlt, FaClock, FaHeadset } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext'; 
 import banner from '../assets/Banner.jpg';
 import { categoryImages } from '../assets/categories'; 
 
-
 export default function Home() {
   const { products } = useProductContext();
+  const { user } = useAuth();
 
   const latestProducts = products.filter((p) => p.latest);
   const bestSellers = products.filter((p) => p.bestseller);
@@ -22,6 +23,15 @@ export default function Home() {
           alt="Glowify Banner"
           className="w-full object-cover h-[300px] md:h-[450px]"
         />
+      </div>
+
+      {/* Personalized Welcome */}
+      <div className="text-center py-6">
+        <h2 className="text-2xl font-prata text-[#006A71]">
+          {user
+            ? `Hey ${user.name || 'Glow Queen'} 👋 ready for your next Glow-up?`
+            : 'Welcome to Glowify, let your skin shine 🌟'}
+        </h2>
       </div>
 
       {/* SHOP BY CATEGORY */}

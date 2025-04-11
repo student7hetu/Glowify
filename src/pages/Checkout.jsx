@@ -1,10 +1,9 @@
-// src/pages/Checkout.jsx
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useProductContext } from '../context/ProductContext';
 
 export default function Checkout() {
-  const { cart, clearCart, placeOrder } = useProductContext();
+  const { cart, clearCart } = useProductContext();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -19,9 +18,12 @@ export default function Checkout() {
     phone: '',
   });
 
+  const [giftWrap, setGiftWrap] = useState(false);
+
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shippingFee = cart.length > 0 ? 10 : 0;
-  const total = subtotal + shippingFee;
+  const giftWrapFee = giftWrap ? 30 : 0;
+  const total = subtotal + shippingFee + giftWrapFee;
 
   const handleChange = (e) =>
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -29,12 +31,18 @@ export default function Checkout() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // ✅ Use placeOrder from context
-    placeOrder({
-      ...formData,
+    const existingOrders = JSON.parse(localStorage.getItem('orders')) || [];
+    const newOrder = {
+      id: Date.now(),
+      items: cart,
       total,
-    });
+      giftWrap,
+      date: new Date().toLocaleString(),
+      shipping: formData,
+    };
 
+    localStorage.setItem('orders', JSON.stringify([...existingOrders, newOrder]));
+    clearCart();
     alert('Order placed successfully!');
     navigate('/cart');
   };
@@ -54,7 +62,7 @@ export default function Checkout() {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="grid md:grid-cols-3 gap-10">
-          {/* FORM */}
+          {/* FORM FIELDS */}
           <div className="md:col-span-2 bg-white p-6 rounded-lg shadow space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <input
@@ -145,7 +153,7 @@ export default function Checkout() {
             />
           </div>
 
-          {/* CART TOTALS */}
+          {/* TOTALS SECTION */}
           <div className="bg-white p-6 rounded-lg shadow space-y-4 h-fit">
             <h2 className="text-2xl font-prata text-[#006A71] mb-4">Cart Totals</h2>
             <div className="space-y-3 text-gray-700">
@@ -157,11 +165,25 @@ export default function Checkout() {
                 <span>Shipping Fee</span>
                 <span>₹{shippingFee.toFixed(2)}</span>
               </div>
+              <div className="flex justify-between">
+                <span>🎁 Gift Wrap</span>
+                <span>₹{giftWrapFee.toFixed(2)}</span>
+              </div>
               <div className="flex justify-between font-semibold text-[#006A71] border-t pt-2">
                 <span>Total</span>
                 <span>₹{total.toFixed(2)}</span>
               </div>
             </div>
+
+            <label className="flex items-center gap-2 mt-4 text-sm">
+              <input
+                type="checkbox"
+                checked={giftWrap}
+                onChange={() => setGiftWrap(!giftWrap)}
+              />
+              🎁 Add Gift Wrapping for ₹30
+            </label>
+
             <div className="mt-6">
               <h3 className="text-lg font-semibold mb-2">Payment Method</h3>
               <p className="text-sm text-gray-600 mb-4">Cash On Delivery</p>

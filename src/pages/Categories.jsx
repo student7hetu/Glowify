@@ -1,25 +1,31 @@
 import { useProductContext } from '../context/ProductContext';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Categories() {
   const { categories, products } = useProductContext();
   const [searchTerm, setSearchTerm] = useState('');
+  const [visibleCount, setVisibleCount] = useState(8); // Pagination limit
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scroll to top on load
+  }, []);
 
   const filteredProducts = Array.isArray(products)
-  ? products.filter((product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-  : [];
+    ? products.filter(
+        (product) =>
+          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.description.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
+
+  const visibleProducts = filteredProducts.slice(0, visibleCount);
+  const hasMore = visibleCount < filteredProducts.length;
 
   return (
     <div className="bg-[#F2EFE7] min-h-screen py-10 px-4 sm:px-6 lg:px-20">
-
       {/* TITLE */}
-      <h1 className="text-4xl font-prata text-[#006A71] mb-8 text-center">
-        Shop by Category
-      </h1>
+      <h1 className="text-4xl font-prata text-[#006A71] mb-8 text-center">Shop by Category</h1>
 
       {/* CATEGORY CARDS */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 mb-12">
@@ -45,7 +51,10 @@ export default function Categories() {
           type="text"
           placeholder="Search products..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setVisibleCount(8); // reset pagination on search
+          }}
           className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#48A6A7]"
         />
       </div>
@@ -53,8 +62,8 @@ export default function Categories() {
       {/* FILTERED PRODUCTS */}
       <h2 className="text-3xl font-prata text-[#006A71] mb-4 text-center">All Products</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((item) => (
+        {visibleProducts.length > 0 ? (
+          visibleProducts.map((item) => (
             <Link
               to={`/product/${item._id}`}
               key={item._id}
@@ -73,6 +82,18 @@ export default function Categories() {
           <p className="text-center text-gray-500 col-span-full">No matching products found.</p>
         )}
       </div>
+
+      {/* LOAD MORE BUTTON */}
+      {hasMore && (
+        <div className="text-center mt-10">
+          <button
+            onClick={() => setVisibleCount((prev) => prev + 8)}
+            className="bg-[#48A6A7] hover:bg-[#006A71] text-white font-semibold px-6 py-3 rounded-lg transition"
+          >
+            Load More
+          </button>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { products as productData } from '../data/products';
 import { categories as categoryData } from '../data/categories';
+import { toast } from 'react-toastify';
 
 const ProductContext = createContext();
 
@@ -40,13 +41,17 @@ export const ProductProvider = ({ children }) => {
           item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item
         )
       );
+      toast.info(`${product.name} quantity increased`);
     } else {
       setCart([...cart, { ...product, quantity: 1 }]);
+      toast.success(`${product.name} added to cart`);
     }
   };
-
+  
   const removeFromCart = (id) => {
+    const item = cart.find(i => i._id === id);
     setCart(cart.filter((item) => item._id !== id));
+    toast.error(`${item?.name} removed from cart`);
   };
 
   const increaseQty = (id) => {

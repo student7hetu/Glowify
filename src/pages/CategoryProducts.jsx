@@ -1,7 +1,9 @@
+// src/pages/CategoryProducts.jsx
 import { useParams, Link } from 'react-router-dom';
 import { useProductContext } from '../context/ProductContext';
 import { FaHeart } from 'react-icons/fa';
 import { useWishlist } from '../context/WishlistContext';
+import SuggestedRoutine from '../components/SuggestedRoutine';
 
 export default function CategoryProducts() {
   const { id } = useParams();
@@ -10,6 +12,8 @@ export default function CategoryProducts() {
 
   const filteredProducts = products.filter((product) => product.category_id === id);
   const category = categories.find((cat) => cat._id === id);
+
+  const routineKey = category?.name?.toLowerCase().replace(/\s+/g, '');
 
   return (
     <div className="min-h-screen bg-[#F2EFE7] py-10 px-4 sm:px-6 lg:px-20">
@@ -24,7 +28,6 @@ export default function CategoryProducts() {
               key={product._id}
               className="bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition-all relative"
             >
-              {/* Heart Button */}
               <button
                 onClick={() => addToWishlist(product)}
                 className="absolute top-3 right-3 text-[#48A6A7] hover:text-[#006A71]"
@@ -47,6 +50,9 @@ export default function CategoryProducts() {
       ) : (
         <p className="text-gray-500 text-center">No products found in this category.</p>
       )}
+
+      {/* ✅ Show SuggestedRoutine dynamically for all categories */}
+      {routineKey && <SuggestedRoutine categoryKey={routineKey} />}
     </div>
   );
 }
