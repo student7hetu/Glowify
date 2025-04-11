@@ -21,8 +21,7 @@ export default function SuggestedRoutine({ categoryKey }) {
     },
   };
 
-  const routine = routines[categoryKey];
-
+  const routine = routines[categoryKey?.toLowerCase()?.trim()];
   if (!routine) return null;
 
   return (
@@ -32,6 +31,7 @@ export default function SuggestedRoutine({ categoryKey }) {
       </h3>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Morning */}
         <div className="bg-[#F2EFE7] p-4 rounded-lg border-l-4 border-[#48A6A7]">
           <h4 className="text-xl font-semibold mb-2 flex items-center gap-2 text-[#006A71]">
             <FaSun /> Morning Routine
@@ -43,6 +43,7 @@ export default function SuggestedRoutine({ categoryKey }) {
           </ul>
         </div>
 
+        {/* Night */}
         <div className="bg-[#F2EFE7] p-4 rounded-lg border-l-4 border-[#006A71]">
           <h4 className="text-xl font-semibold mb-2 flex items-center gap-2 text-[#48A6A7]">
             <FaMoon /> Night Routine

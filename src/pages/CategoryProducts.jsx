@@ -12,7 +12,6 @@ export default function CategoryProducts() {
 
   const filteredProducts = products.filter((product) => product.category_id === id);
   const category = categories.find((cat) => cat._id === id);
-
   const routineKey = category?.name?.toLowerCase().replace(/\s+/g, '');
 
   return (
@@ -31,6 +30,7 @@ export default function CategoryProducts() {
               <button
                 onClick={() => addToWishlist(product)}
                 className="absolute top-3 right-3 text-[#48A6A7] hover:text-[#006A71]"
+                title="Add to Wishlist"
               >
                 <FaHeart />
               </button>
@@ -51,8 +51,12 @@ export default function CategoryProducts() {
         <p className="text-gray-500 text-center">No products found in this category.</p>
       )}
 
-      {/* ✅ Show SuggestedRoutine dynamically for all categories */}
-      {routineKey && <SuggestedRoutine categoryKey={routineKey} />}
+      {/* 🎯 Render routine only if category matched one of the keys */}
+      {['skincare', 'haircare', 'bodycare', 'wellness'].includes(routineKey) && (
+        <div className="mt-16">
+          <SuggestedRoutine categoryKey={routineKey} />
+        </div>
+      )}
     </div>
   );
 }

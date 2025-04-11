@@ -1,8 +1,8 @@
+// src/pages/Auth.jsx
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
 
 export default function Auth() {
   const { login, register } = useAuth();
@@ -19,12 +19,12 @@ export default function Auth() {
       ? login(form.email, form.password)
       : register({ name: form.name, email: form.email, password: form.password });
 
-      if (success) {
-        toast.success(isLogin ? 'Login successful!' : 'Registered and logged in!');
-        navigate('/');
-      } else {
-        toast.error('Something went wrong. User might already exist.');
-      }
+    if (success) {
+      toast.success(isLogin ? 'Login successful!' : 'Registered and logged in!');
+      navigate('/');
+    } else {
+      toast.error('Something went wrong. User might already exist.');
+    }
   };
 
   return (
@@ -44,6 +44,7 @@ export default function Auth() {
               onChange={handleChange}
               className="w-full border border-gray-300 p-3 rounded-lg"
               required
+              autoComplete="name"
             />
           )}
           <input
@@ -54,6 +55,7 @@ export default function Auth() {
             onChange={handleChange}
             className="w-full border border-gray-300 p-3 rounded-lg"
             required
+            autoComplete="email"
           />
           <input
             type="password"
@@ -63,6 +65,7 @@ export default function Auth() {
             onChange={handleChange}
             className="w-full border border-gray-300 p-3 rounded-lg"
             required
+            autoComplete={isLogin ? 'current-password' : 'new-password'}
           />
           <button
             type="submit"

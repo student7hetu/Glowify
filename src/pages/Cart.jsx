@@ -1,3 +1,4 @@
+// src/pages/Cart.jsx
 import { useProductContext } from '../context/ProductContext';
 import { Link } from 'react-router-dom';
 import { FaTrash } from 'react-icons/fa';
@@ -14,11 +15,11 @@ export default function Cart() {
       <h1 className="text-4xl font-prata text-[#006A71] mb-8 text-center">Your Cart</h1>
 
       {cart.length === 0 ? (
-        <div className="text-center">
-          <p className="text-gray-500 mb-3">Your cart is empty.</p>
+        <div className="text-center py-20">
+          <p className="text-gray-500 mb-4 text-lg">Oops! Your cart is currently empty.</p>
           <Link to="/categories">
-            <button className="bg-[#48A6A7] text-white px-6 py-2 rounded hover:bg-[#006A71]">
-              Back to Shop
+            <button className="bg-[#48A6A7] hover:bg-[#006A71] text-white px-6 py-3 rounded-lg font-semibold transition">
+              Browse Products
             </button>
           </Link>
         </div>
@@ -43,14 +44,14 @@ export default function Cart() {
                     <div className="flex items-center gap-2 mt-2">
                       <button
                         onClick={() => decreaseQty(item._id)}
-                        className="px-2 py-1 bg-[#9ACBD0] rounded"
+                        className="px-2 py-1 bg-[#9ACBD0] rounded font-bold"
                       >
                         -
                       </button>
                       <span>{item.quantity}</span>
                       <button
                         onClick={() => increaseQty(item._id)}
-                        className="px-2 py-1 bg-[#48A6A7] text-white rounded"
+                        className="px-2 py-1 bg-[#48A6A7] text-white rounded font-bold"
                       >
                         +
                       </button>
@@ -60,6 +61,7 @@ export default function Cart() {
                 <button
                   onClick={() => removeFromCart(item._id)}
                   className="text-red-500 hover:text-red-700"
+                  title="Remove item"
                 >
                   <FaTrash />
                 </button>
@@ -68,14 +70,14 @@ export default function Cart() {
           </div>
 
           {/* 💸 Cart Totals */}
-          <div className="bg-white rounded-lg shadow p-6">
+          <div className="bg-white rounded-lg shadow p-6 h-fit">
             <h2 className="text-2xl font-prata text-[#006A71] mb-4">Cart Totals</h2>
-            <div className="space-y-3">
-              <div className="flex justify-between text-gray-700">
+            <div className="space-y-3 text-gray-700">
+              <div className="flex justify-between">
                 <span>Subtotal</span>
                 <span>₹{subtotal.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between text-gray-700">
+              <div className="flex justify-between">
                 <span>Shipping Fee</span>
                 <span>₹{shippingFee.toFixed(2)}</span>
               </div>

@@ -21,7 +21,10 @@ export default function OrderHistory() {
 
       {orders.length === 0 ? (
         <div className="text-center text-gray-500">
-          No orders yet. <Link to="/categories" className="text-[#006A71] underline">Start Shopping</Link>
+          No orders yet.{' '}
+          <Link to="/categories" className="text-[#006A71] underline">
+            Start Shopping
+          </Link>
         </div>
       ) : (
         <div className="space-y-8">
@@ -53,10 +56,15 @@ export default function OrderHistory() {
               </div>
 
               <div className="border-t pt-4 text-sm text-gray-700 space-y-1">
-                <p><strong>Total:</strong> ₹{order.total}</p>
-                <p><strong>Shipping To:</strong> {order.shipping.firstName} {order.shipping.lastName}, {order.shipping.street}, {order.shipping.city}</p>
+                <p>
+                  <strong>Total:</strong> ₹{order.total}
+                </p>
+                <p>
+                  <strong>Shipping To:</strong> {order.shipping.firstName} {order.shipping.lastName},{' '}
+                  {order.shipping.street}, {order.shipping.city}
+                </p>
                 {order.giftWrap && (
-                  <p className="text-green-700">🎁 Gift Wrapped</p>
+                  <p className="text-green-700 font-medium">🎁 Gift Wrapping Included</p>
                 )}
               </div>
             </div>

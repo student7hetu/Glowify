@@ -27,9 +27,8 @@ const ProductDetails = () => {
   return (
     <div className="min-h-screen bg-[#F2EFE7] py-10 px-5 md:px-20">
       <div className="flex flex-col md:flex-row gap-10">
-        {/* Left: Product Info */}
-        <div className="w-full md:w-1/2 bg-white p-6 rounded-xl shadow-sm relative">
-          {/* Wishlist Icon */}
+        {/* Product Info */}
+        <div className="w-full md:w-1/2 bg-white p-6 rounded-xl shadow relative">
           <FaHeart
             onClick={() => addToWishlist(product)}
             className="absolute top-4 right-4 text-[#48A6A7] hover:text-[#006A71] text-xl cursor-pointer"
@@ -42,26 +41,25 @@ const ProductDetails = () => {
           <h2 className="text-2xl font-bold text-[#006A71] mb-2">{product.name}</h2>
           <p className="text-lg font-semibold text-[#48A6A7] mb-1">₹{product.price}</p>
           <p className="text-sm text-gray-700 mb-4">{product.description}</p>
-
           <p className="text-sm"><strong>Brand:</strong> {product.brand}</p>
           <p className="text-sm mt-1"><strong>Ingredients:</strong> {product.ingredients}</p>
           <p className="text-sm mt-1"><strong>Usage:</strong> {product.usage}</p>
 
           <button
             onClick={() => addToCart(product)}
-            className="mt-6 w-full bg-[#48A6A7] hover:bg-[#006A71] text-white py-3 rounded-lg font-semibold"
+            className="mt-6 w-full bg-[#48A6A7] hover:bg-[#006A71] text-white py-3 rounded-lg font-semibold transition"
           >
             Add to Cart
           </button>
         </div>
 
-        {/* Right: Inquiry Form */}
+        {/* Inquiry Form */}
         <div className="w-full md:w-1/2">
           <ProductInquiryForm product={product} />
         </div>
       </div>
 
-      {/* Related Products */}
+      {/* Related */}
       {related.length > 0 && (
         <div className="mt-16">
           <h3 className="text-2xl font-prata text-[#006A71] mb-6">Related Products</h3>
@@ -79,7 +77,6 @@ const ProductDetails = () => {
                 />
                 <h3 className="font-semibold text-gray-800">{item.name}</h3>
                 <p className="text-[#48A6A7] font-bold">₹{item.price}</p>
-                {/* Wishlist */}
                 <FaHeart
                   onClick={(e) => {
                     e.preventDefault();

@@ -7,15 +7,8 @@ export default function Checkout() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    street: '',
-    city: '',
-    state: '',
-    zipcode: '',
-    country: '',
-    phone: '',
+    firstName: '', lastName: '', email: '', street: '', city: '',
+    state: '', zipcode: '', country: '', phone: '',
   });
 
   const [giftWrap, setGiftWrap] = useState(false);
@@ -30,7 +23,6 @@ export default function Checkout() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const existingOrders = JSON.parse(localStorage.getItem('orders')) || [];
     const newOrder = {
       id: Date.now(),
@@ -62,135 +54,44 @@ export default function Checkout() {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="grid md:grid-cols-3 gap-10">
-          {/* FORM FIELDS */}
           <div className="md:col-span-2 bg-white p-6 rounded-lg shadow space-y-4">
             <div className="grid grid-cols-2 gap-4">
-              <input
-                type="text"
-                name="firstName"
-                placeholder="First Name"
-                required
-                value={formData.firstName}
-                onChange={handleChange}
-                className="p-3 border border-gray-300 rounded"
-              />
-              <input
-                type="text"
-                name="lastName"
-                placeholder="Last Name"
-                required
-                value={formData.lastName}
-                onChange={handleChange}
-                className="p-3 border border-gray-300 rounded"
-              />
+              <input type="text" name="firstName" placeholder="First Name" required value={formData.firstName} onChange={handleChange} className="p-3 border border-gray-300 rounded" />
+              <input type="text" name="lastName" placeholder="Last Name" required value={formData.lastName} onChange={handleChange} className="p-3 border border-gray-300 rounded" />
             </div>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              required
-              value={formData.email}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded"
-            />
-            <input
-              type="text"
-              name="street"
-              placeholder="Street"
-              required
-              value={formData.street}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded"
-            />
+            <input type="email" name="email" placeholder="Email Address" required value={formData.email} onChange={handleChange} className="w-full p-3 border border-gray-300 rounded" />
+            <input type="text" name="street" placeholder="Street" required value={formData.street} onChange={handleChange} className="w-full p-3 border border-gray-300 rounded" />
             <div className="grid grid-cols-2 gap-4">
-              <input
-                type="text"
-                name="city"
-                placeholder="City"
-                required
-                value={formData.city}
-                onChange={handleChange}
-                className="p-3 border border-gray-300 rounded"
-              />
-              <input
-                type="text"
-                name="state"
-                placeholder="State"
-                required
-                value={formData.state}
-                onChange={handleChange}
-                className="p-3 border border-gray-300 rounded"
-              />
+              <input type="text" name="city" placeholder="City" required value={formData.city} onChange={handleChange} className="p-3 border border-gray-300 rounded" />
+              <input type="text" name="state" placeholder="State" required value={formData.state} onChange={handleChange} className="p-3 border border-gray-300 rounded" />
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <input
-                type="text"
-                name="zipcode"
-                placeholder="Zip Code"
-                required
-                value={formData.zipcode}
-                onChange={handleChange}
-                className="p-3 border border-gray-300 rounded"
-              />
-              <input
-                type="text"
-                name="country"
-                placeholder="Country"
-                required
-                value={formData.country}
-                onChange={handleChange}
-                className="p-3 border border-gray-300 rounded"
-              />
+              <input type="text" name="zipcode" placeholder="Zip Code" required value={formData.zipcode} onChange={handleChange} className="p-3 border border-gray-300 rounded" />
+              <input type="text" name="country" placeholder="Country" required value={formData.country} onChange={handleChange} className="p-3 border border-gray-300 rounded" />
             </div>
-            <input
-              type="text"
-              name="phone"
-              placeholder="Phone"
-              required
-              value={formData.phone}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded"
-            />
+            <input type="text" name="phone" placeholder="Phone" required value={formData.phone} onChange={handleChange} className="w-full p-3 border border-gray-300 rounded" />
           </div>
 
-          {/* TOTALS SECTION */}
           <div className="bg-white p-6 rounded-lg shadow space-y-4 h-fit">
             <h2 className="text-2xl font-prata text-[#006A71] mb-4">Cart Totals</h2>
             <div className="space-y-3 text-gray-700">
-              <div className="flex justify-between">
-                <span>Subtotal</span>
-                <span>₹{subtotal.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Shipping Fee</span>
-                <span>₹{shippingFee.toFixed(2)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span>🎁 Gift Wrap</span>
-                <span>₹{giftWrapFee.toFixed(2)}</span>
-              </div>
+              <div className="flex justify-between"><span>Subtotal</span><span>₹{subtotal.toFixed(2)}</span></div>
+              <div className="flex justify-between"><span>Shipping Fee</span><span>₹{shippingFee.toFixed(2)}</span></div>
+              <div className="flex justify-between"><span>🎁 Gift Wrap</span><span>₹{giftWrapFee.toFixed(2)}</span></div>
               <div className="flex justify-between font-semibold text-[#006A71] border-t pt-2">
-                <span>Total</span>
-                <span>₹{total.toFixed(2)}</span>
+                <span>Total</span><span>₹{total.toFixed(2)}</span>
               </div>
             </div>
 
             <label className="flex items-center gap-2 mt-4 text-sm">
-              <input
-                type="checkbox"
-                checked={giftWrap}
-                onChange={() => setGiftWrap(!giftWrap)}
-              />
+              <input type="checkbox" checked={giftWrap} onChange={() => setGiftWrap(!giftWrap)} />
               🎁 Add Gift Wrapping for ₹30
             </label>
 
             <div className="mt-6">
               <h3 className="text-lg font-semibold mb-2">Payment Method</h3>
               <p className="text-sm text-gray-600 mb-4">Cash On Delivery</p>
-              <button
-                type="submit"
-                className="w-full bg-[#48A6A7] hover:bg-[#006A71] text-white py-3 rounded-lg font-semibold transition"
-              >
+              <button type="submit" className="w-full bg-[#48A6A7] hover:bg-[#006A71] text-white py-3 rounded-lg font-semibold transition">
                 Place Order
               </button>
             </div>

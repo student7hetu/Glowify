@@ -17,17 +17,18 @@ export default function Home() {
     <div className="bg-[#dbe0e1]">
 
       {/* BANNER */}
-      <div className='w-full h-full mask-b-from-90%  mask-t-from-80%  mask-l-from-90%  mask-r-from-90% '>
+      <div className="relative w-full">
         <img
           src={banner}
           alt="Glowify Banner"
           className="w-full object-cover h-[300px] md:h-[450px]"
         />
+        <div className="absolute inset-0 bg-black opacity-10" />
       </div>
 
       {/* Personalized Welcome */}
       <div className="text-center py-6">
-        <h2 className="text-2xl font-prata text-[#006A71]">
+        <h2 className="text-2xl md:text-3xl font-prata text-[#006A71] animate-fade-in">
           {user
             ? `Hey ${user.name || 'Glow Queen'} 👋 ready for your next Glow-up?`
             : 'Welcome to Glowify, let your skin shine 🌟'}
@@ -35,26 +36,25 @@ export default function Home() {
       </div>
 
       {/* SHOP BY CATEGORY */}
-<section className="max-w-7xl mx-auto px-4 py-10 mt-20">
-  <h2 className="text-3xl font-prata text-[#006A71] mb-4">Shop by Category</h2>
-  <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
-    {['Skincare', 'Haircare', 'Bodycare', 'Wellness'].map((categoryName, index) => (
-      <Link
-        to={`/category/cat${index + 1}`}
-        key={categoryName}
-        className="bg-white p-3 rounded-lg shadow hover:shadow-lg transition text-center"
-      >
-        <img
-  src={categoryImages[categoryName]}
-  alt={categoryName}
-  className="w-full h-32 object-cover rounded mb-3"
-/>
-
-        <h3 className="text-md font-semibold text-[#006A71]">{categoryName}</h3>
-      </Link>
-    ))}
-  </div>
-</section>
+      <section className="max-w-7xl mx-auto px-4 py-10 mt-10">
+        <h2 className="text-3xl font-prata text-[#006A71] mb-6">Shop by Category</h2>
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          {['Skincare', 'Haircare', 'Bodycare', 'Wellness'].map((categoryName, index) => (
+            <Link
+              to={`/category/cat${index + 1}`}
+              key={categoryName}
+              className="bg-white p-3 rounded-lg shadow hover:shadow-lg transition text-center"
+            >
+              <img
+                src={categoryImages[categoryName]}
+                alt={categoryName}
+                className="w-full h-32 object-cover rounded mb-3"
+              />
+              <h3 className="text-md font-semibold text-[#006A71]">{categoryName}</h3>
+            </Link>
+          ))}
+        </div>
+      </section>
 
       {/* LATEST COLLECTION */}
       <section className="max-w-7xl mx-auto px-4 py-10">
@@ -112,61 +112,60 @@ export default function Home() {
       </section>
 
       {/* FEEDBACK SECTION */}
-<section className="bg-[#F2EFE7] py-12 px-4">
-  <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-8">
-    <h2 className="text-3xl font-prata text-[#006A71] mb-4">We’d love your feedback!</h2>
-    <p className="text-gray-600 mb-6">
-      Tell us how we're doing, what you love, or what we can improve!
-    </p>
+      <section className="bg-[#F2EFE7] py-12 px-4">
+        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-8">
+          <h2 className="text-3xl font-prata text-[#006A71] mb-4">We’d love your feedback!</h2>
+          <p className="text-gray-600 mb-6">
+            Tell us how we're doing, what you love, or what we can improve!
+          </p>
 
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        alert('Thank you for your feedback! 🧡');
-        e.target.reset();
-      }}
-      className="space-y-4"
-    >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input
-          type="text"
-          name="name"
-          required
-          placeholder="Your Name"
-          className="p-3 border border-gray-300 rounded-lg w-full"
-        />
-        <input
-          type="email"
-          name="email"
-          required
-          placeholder="Your Email"
-          className="p-3 border border-gray-300 rounded-lg w-full"
-        />
-      </div>
-      <input
-        type="text"
-        name="subject"
-        required
-        placeholder="Subject"
-        className="w-full p-3 border border-gray-300 rounded-lg"
-      />
-      <textarea
-        name="message"
-        rows="5"
-        required
-        placeholder="Your Feedback"
-        className="w-full p-3 border border-gray-300 rounded-lg"
-      ></textarea>
-      <button
-        type="submit"
-        className="w-full bg-[#48A6A7] hover:bg-[#006A71] text-white font-semibold py-3 rounded-lg transition"
-      >
-        Submit Feedback
-      </button>
-    </form>
-  </div>
-</section>
-
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              alert('Thank you for your feedback! 🧡');
+              e.target.reset();
+            }}
+            className="space-y-4"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <input
+                type="text"
+                name="name"
+                required
+                placeholder="Your Name"
+                className="p-3 border border-gray-300 rounded-lg w-full"
+              />
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="Your Email"
+                className="p-3 border border-gray-300 rounded-lg w-full"
+              />
+            </div>
+            <input
+              type="text"
+              name="subject"
+              required
+              placeholder="Subject"
+              className="w-full p-3 border border-gray-300 rounded-lg"
+            />
+            <textarea
+              name="message"
+              rows="5"
+              required
+              placeholder="Your Feedback"
+              className="w-full p-3 border border-gray-300 rounded-lg"
+            ></textarea>
+            <button
+              type="submit"
+              className="w-full bg-[#48A6A7] hover:bg-[#006A71] text-white font-semibold py-3 rounded-lg transition"
+            >
+              Submit Feedback
+            </button>
+          </form>
+        </div>
+      </section>
 
       {/* FOOTER */}
       <footer className="bg-[#006A71] text-white py-10 px-4">
@@ -194,7 +193,6 @@ export default function Home() {
             <p className="text-xs text-gray-300 mt-4">© 2024 Glowify. All rights reserved.</p>
           </div>
         </div>
-        
       </footer>
     </div>
   );

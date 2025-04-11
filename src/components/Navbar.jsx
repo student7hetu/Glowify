@@ -1,6 +1,7 @@
 // src/components/Navbar.jsx
 import { NavLink, useNavigate } from 'react-router-dom';
-import { FaShoppingCart, FaUser, FaSignOutAlt } from 'react-icons/fa';
+import { FaShoppingCart, FaUser, FaSignOutAlt, FaBars, FaTimes } from 'react-icons/fa';
+import { useState } from 'react';
 import { useProductContext } from '../context/ProductContext';
 import { useAuth } from '../context/AuthContext';
 import logo from '../assets/logo.png';
@@ -8,6 +9,7 @@ import logo from '../assets/logo.png';
 export default function Navbar() {
   const { cart } = useProductContext();
   const { user, logout } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -18,24 +20,29 @@ export default function Navbar() {
 
   const handleLogout = () => {
     logout();
+    setMenuOpen(false);
     navigate('/auth');
   };
+
+  const closeMenu = () => setMenuOpen(false);
 
   return (
     <nav className="bg-gray-100 shadow-sm border-b sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-
         {/* LOGO */}
         <NavLink to="/" className="flex items-center gap-3">
-          <img
-            src={logo}
-            alt="Glowify Logo"
-            className="h-10 w-auto object-contain"
-          />
+          <img src={logo} alt="Glowify Logo" className="h-10 w-auto object-contain" />
         </NavLink>
 
-        {/* LINKS */}
-        <div className="flex items-center gap-6 font-medium">
+        {/* HAMBURGER ICON (MOBILE) */}
+        <div className="md:hidden">
+          <button onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <FaTimes size={22} /> : <FaBars size={22} />}
+          </button>
+        </div>
+
+        {/* NAV LINKS (DESKTOP) */}
+        <div className="hidden md:flex items-center gap-6 font-medium">
           <NavLink to="/" className={navLinkClass}>Home</NavLink>
           <NavLink to="/categories" className={navLinkClass}>Categories</NavLink>
           <NavLink to="/contact" className={navLinkClass}>Contact</NavLink>
@@ -54,7 +61,7 @@ export default function Navbar() {
             )}
           </NavLink>
 
-          {/* LOGIN / LOGOUT ICON */}
+          {/* AUTH ICON */}
           {user ? (
             <button onClick={handleLogout} title="Logout">
               <FaSignOutAlt size={20} className="text-red-500 hover:text-red-700 transition" />
@@ -66,6 +73,33 @@ export default function Navbar() {
           )}
         </div>
       </div>
+
+      {/* NAV LINKS (MOBILE DROPDOWN) */}
+      {menuOpen && (
+        <div className="md:hidden bg-gray-100 px-6 pb-6 flex flex-col gap-4 font-medium">
+          <NavLink to="/" className={navLinkClass} onClick={closeMenu}>Home</NavLink>
+          <NavLink to="/categories" className={navLinkClass} onClick={closeMenu}>Categories</NavLink>
+          <NavLink to="/contact" className={navLinkClass} onClick={closeMenu}>Contact</NavLink>
+          <NavLink to="/about" className={navLinkClass} onClick={closeMenu}>About</NavLink>
+          <NavLink to="/wishlist" className={navLinkClass} onClick={closeMenu}>Wishlist</NavLink>
+          <NavLink to="/order-history" className={navLinkClass} onClick={closeMenu}>Orders</NavLink>
+          <NavLink to="/faqs" className={navLinkClass} onClick={closeMenu}>FAQs</NavLink>
+          <NavLink to="/cart" className={navLinkClass} onClick={closeMenu}>Cart</NavLink>
+
+          {user ? (
+            <button
+              onClick={handleLogout}
+              className="text-red-600 hover:text-red-800 text-left"
+            >
+              Logout
+            </button>
+          ) : (
+            <NavLink to="/auth" className="text-[#006A71]" onClick={closeMenu}>
+              Login
+            </NavLink>
+          )}
+        </div>
+      )}
     </nav>
   );
 }
