@@ -1,4 +1,3 @@
-// src/components/SuggestedRoutine.jsx
 import { FaSun, FaMoon } from 'react-icons/fa';
 
 export default function SuggestedRoutine({ categoryKey }) {

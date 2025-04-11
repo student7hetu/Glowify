@@ -103,7 +103,7 @@ export const ProductProvider = ({ children }) => {
         clearCart,
         products,
         categories,
-        placeOrder, // <-- Exporting placeOrder
+        placeOrder,
       }}
     >
       {children}

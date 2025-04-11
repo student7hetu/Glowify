@@ -15,6 +15,8 @@ import FAQs from './pages/FAQs';
 import ProtectedRoute from './components/ProtectedRoute'; // ✅ new import
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import MoodShop from './pages/MoodShop';
+
 
 export default function App() {
   return (
@@ -29,6 +31,7 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/faqs" element={<FAQs />} />
+        <Route path="/mood-shop" element={<MoodShop />} />
 
         {/* 🔒 Protected Routes */}
         <Route

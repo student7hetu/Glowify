@@ -2,9 +2,10 @@
 import { useProductContext } from '../context/ProductContext';
 import { Link } from 'react-router-dom';
 import { FaUndoAlt, FaClock, FaHeadset } from 'react-icons/fa';
-import { useAuth } from '../context/AuthContext'; 
-import banner from '../assets/Banner.jpg';
-import { categoryImages } from '../assets/categories'; 
+import { useAuth } from '../context/AuthContext';
+import LazyLoad from 'react-lazyload';
+import banner from '../assets/bannernew.png';
+import { categoryImages } from '../assets/categories';
 
 export default function Home() {
   const { products } = useProductContext();
@@ -15,20 +16,19 @@ export default function Home() {
 
   return (
     <div className="bg-[#dbe0e1]">
+ {/* BANNER */}
+<div className="w-full relative overflow-hidden mask-y-from-95% mask-x-from-98%">
+  <img
+    src={banner}
+    alt="Glowify Banner"
+    className="w-full h-auto max-h-[550px] object-cover md:object-contain"
+  />
+</div>
 
-      {/* BANNER */}
-      <div className="relative w-full">
-        <img
-          src={banner}
-          alt="Glowify Banner"
-          className="w-full object-cover h-[300px] md:h-[450px]"
-        />
-        <div className="absolute inset-0 bg-black opacity-10" />
-      </div>
 
       {/* Personalized Welcome */}
       <div className="text-center py-6">
-        <h2 className="text-2xl md:text-3xl font-prata text-[#006A71] animate-fade-in">
+        <h2 className="text-2xl font-prata text-[#006A71]">
           {user
             ? `Hey ${user.name || 'Glow Queen'} 👋 ready for your next Glow-up?`
             : 'Welcome to Glowify, let your skin shine 🌟'}
@@ -36,8 +36,8 @@ export default function Home() {
       </div>
 
       {/* SHOP BY CATEGORY */}
-      <section className="max-w-7xl mx-auto px-4 py-10 mt-10">
-        <h2 className="text-3xl font-prata text-[#006A71] mb-6">Shop by Category</h2>
+      <section className="max-w-7xl mx-auto px-4 py-10 mt-20">
+        <h2 className="text-3xl font-prata text-[#006A71] mb-4">Shop by Category</h2>
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {['Skincare', 'Haircare', 'Bodycare', 'Wellness'].map((categoryName, index) => (
             <Link
@@ -65,7 +65,14 @@ export default function Home() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
           {latestProducts.map((item) => (
             <Link to={`/product/${item._id}`} key={item._id} className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
-              <img src={item.image} alt={item.name} className="w-full h-40 object-cover rounded mb-3" />
+              <LazyLoad
+                height={160}
+                offset={100}
+                once
+                placeholder={<div className="bg-gray-200 h-40 w-full animate-pulse rounded mb-3" />}
+              >
+                <img src={item.image} alt={item.name} className="w-full h-40 object-cover rounded mb-3" />
+              </LazyLoad>
               <h3 className="font-semibold text-gray-800">{item.name}</h3>
               <p className="text-[#48A6A7] font-bold">₹{item.price}</p>
             </Link>
@@ -82,13 +89,52 @@ export default function Home() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
           {bestSellers.map((item) => (
             <Link to={`/product/${item._id}`} key={item._id} className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition">
-              <img src={item.image} alt={item.name} className="w-full h-40 object-cover rounded mb-3" />
+              <LazyLoad
+                height={160}
+                offset={100}
+                once
+                placeholder={<div className="bg-gray-200 h-40 w-full animate-pulse rounded mb-3" />}
+              >
+                <img src={item.image} alt={item.name} className="w-full h-40 object-cover rounded mb-3" />
+              </LazyLoad>
               <h3 className="font-semibold text-gray-800">{item.name}</h3>
               <p className="text-[#48A6A7] font-bold">₹{item.price}</p>
             </Link>
           ))}
         </div>
       </section>
+
+      {/* SHOP BY MOOD */}
+<section className="max-w-7xl mx-auto px-4 pt-10 mb-5">
+  <h2 className="text-3xl font-prata text-[#006A71] mb-4">Shop by Mood</h2>
+  <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+    <Link
+      to="/mood-shop?mood=feeling-dull"
+      className="bg-white border border-[#48A6A7] hover:bg-[#F2EFE7] text-center p-4 rounded-lg transition shadow hover:shadow-md"
+    >
+      🌞 <span className="font-semibold text-[#006A71]">Feeling Dull</span>
+    </Link>
+    <Link
+      to="/mood-shop?mood=weekend-chill"
+      className="bg-white border border-[#48A6A7] hover:bg-[#F2EFE7] text-center p-4 rounded-lg transition shadow hover:shadow-md"
+    >
+      🛀 <span className="font-semibold text-[#006A71]">Weekend Chill</span>
+    </Link>
+    <Link
+      to="/mood-shop?mood=feeling-tired"
+      className="bg-white border border-[#48A6A7] hover:bg-[#F2EFE7] text-center p-4 rounded-lg transition shadow hover:shadow-md"
+    >
+      💤 <span className="font-semibold text-[#006A71]">Feeling Tired</span>
+    </Link>
+    <Link
+      to="/mood-shop?mood=glow-goals"
+      className="bg-white border border-[#48A6A7] hover:bg-[#F2EFE7] text-center p-4 rounded-lg transition shadow hover:shadow-md"
+    >
+      ✨ <span className="font-semibold text-[#006A71]">Glow Goals</span>
+    </Link>
+  </div>
+</section>
+
 
       {/* POLICIES */}
       <section className="bg-white py-10 px-4 border-y border-gray-200">
@@ -181,8 +227,8 @@ export default function Home() {
             <ul className="space-y-2 text-sm text-gray-200">
               <li><Link to="/">Home</Link></li>
               <li><Link to="/about">About Us</Link></li>
-              <li><Link to="/delivery">Delivery</Link></li>
-              <li><Link to="/privacy">Privacy Policy</Link></li>
+              <li><Link to="/order-history">Orders</Link></li>
+              <li><Link to="/faqs">FAQs</Link></li>
               <li><Link to="/contact">Connect Us</Link></li>
             </ul>
           </div>

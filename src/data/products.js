@@ -39,7 +39,7 @@ export const products = [
     usage: "Use daily as directed",
     image: hydratingcream,
     latest: true,
-  bestseller: true
+  bestseller: false
   },
   {
     _id: "prod2",
@@ -52,7 +52,7 @@ export const products = [
     usage: "Use daily as directed",
     image: gentlecleanser,
     latest: true,
-  bestseller: true
+  bestseller: false
   },
   {
     _id: "prod3",
@@ -117,7 +117,7 @@ export const products = [
     usage: "Use daily as directed",
     image: shampoo,
     latest: false,
-  bestseller: false
+  bestseller: true
   },
   {
     _id: "prod8",
@@ -130,7 +130,7 @@ export const products = [
     usage: "Use daily as directed",
     image: conditioner,
     latest: false,
-  bestseller: false
+  bestseller: true
   },
   {
     _id: "prod9",
@@ -143,7 +143,7 @@ export const products = [
     usage: "Use daily as directed",
     image: hairoil,
     latest: true,
-  bestseller: true
+  bestseller: false
   },
   {
     _id: "prod10",
@@ -156,7 +156,7 @@ export const products = [
     usage: "Use daily as directed",
     image: hairserum,
     latest: true,
-  bestseller: true
+  bestseller: false
   },
   {
     _id: "prod11",
@@ -195,7 +195,7 @@ export const products = [
     usage: "Use daily as directed",
     image: bodylotion,
     latest: false,
-  bestseller: false
+  bestseller: true
   },
   {
     _id: "prod14",
@@ -208,7 +208,7 @@ export const products = [
     usage: "Use daily as directed",
     image: showergel,
     latest: false,
-  bestseller: false
+  bestseller: true
   },
   {
     _id: "prod15",
@@ -221,7 +221,7 @@ export const products = [
     usage: "Use daily as directed",
     image: bodyscrub,
     latest: true,
-  bestseller: true
+  bestseller: false
   },
   {
     _id: "prod16",
@@ -234,7 +234,7 @@ export const products = [
     usage: "Use daily as directed",
     image: handcream,
     latest: true,
-  bestseller: true
+  bestseller: false
   },
   {
     _id: "prod17",
@@ -247,7 +247,7 @@ export const products = [
     usage: "Use daily as directed",
     image: footcream,
     latest: false,
-  bestseller: false
+  bestseller: true
   },
   {
     _id: "prod18",
@@ -260,7 +260,7 @@ export const products = [
     usage: "Use daily as directed",
     image: bodybutter,
     latest: false,
-  bestseller: false
+  bestseller: true
   },
   {
     _id: "prod19",
@@ -273,7 +273,7 @@ export const products = [
     usage: "Use daily as directed",
     image: herbaltea,
     latest: true,
-  bestseller: true
+  bestseller: false
   },
   {
     _id: "prod20",
@@ -286,7 +286,7 @@ export const products = [
     usage: "Use daily as directed",
     image: vitamingummies,
     latest: true,
-  bestseller: true
+  bestseller: false
   },
   {
     _id: "prod21",
@@ -325,7 +325,7 @@ export const products = [
     usage: "Use daily as directed",
     image: energydrink,
     latest: false,
-  bestseller: false
+  bestseller: true
   },
   {
     _id: "prod24",
@@ -338,6 +338,6 @@ export const products = [
     usage: "Use daily as directed",
     image: immunityshot,
     latest: false,
-  bestseller: false
+  bestseller: true
   }
 ];

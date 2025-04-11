@@ -1,6 +1,8 @@
+// src/pages/Categories.jsx
 import { useProductContext } from '../context/ProductContext';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import LazyLoad from 'react-lazyload';
 
 export default function Categories() {
   const { categories, products } = useProductContext();
@@ -8,7 +10,7 @@ export default function Categories() {
   const [visibleCount, setVisibleCount] = useState(8); // Pagination limit
 
   useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to top on load
+    window.scrollTo(0, 0);
   }, []);
 
   const filteredProducts = Array.isArray(products)
@@ -53,7 +55,7 @@ export default function Categories() {
           value={searchTerm}
           onChange={(e) => {
             setSearchTerm(e.target.value);
-            setVisibleCount(8); // reset pagination on search
+            setVisibleCount(8); // reset on search
           }}
           className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#48A6A7]"
         />
@@ -69,11 +71,18 @@ export default function Categories() {
               key={item._id}
               className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition"
             >
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-full h-40 object-cover rounded mb-3"
-              />
+              <LazyLoad
+                height={160}
+                offset={100}
+                once
+                placeholder={<div className="bg-gray-200 h-40 w-full animate-pulse rounded mb-3" />}
+              >
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-40 object-cover rounded mb-3"
+                />
+              </LazyLoad>
               <h3 className="font-semibold text-gray-800">{item.name}</h3>
               <p className="text-[#48A6A7] font-bold">₹{item.price}</p>
             </Link>
