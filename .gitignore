@@ -10,6 +10,7 @@ node_modules
 dist
 .env
 vercel.json
+.env
 
 node_modules
 dist
